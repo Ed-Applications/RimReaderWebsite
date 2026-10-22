@@ -40,6 +40,7 @@ A page whose settings include `"redirect": "page.html#anchor"` only sends visito
 | `make-your-own.html` | The seven things a homemade bracket needs |
 | `accuracy.html` | How closely readings repeat, other ways to check alignment compared, what makes a good reading |
 | `compare.html` | Redirects to `accuracy.html#compare` |
+| `rim-reader-vs-gyraline.html` | Rim Reader, Gyraline G1 and G2 side by side, every Gyraline point cited to their own pages or videos (sources dated). Linked from Accuracy and the FAQ's price answer. Re-check Gyraline's prices and features before relying on it |
 | `coming-soon.html` | What's coming: Google Play, iPhone, shop plans, factory specs (the print files are out: Printables, linked from `src/facts.json` `printables-url`) |
 | `faq.html` | Frequently asked questions, with a search box |
 | `help/` | The help center: getting started, set up, measuring, results, history and reports, alignment basics, all 16 lessons, troubleshooting |

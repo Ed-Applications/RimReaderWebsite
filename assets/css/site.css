@@ -398,3 +398,32 @@ details.more + details.more { margin-top: calc(-1 * var(--rr-space-2)); }
 @media (max-width: 600px) { .phone-table td.bare, .phone-table th.bare { display: none; } }
 
 .rr-card h2.card-title { font-size: var(--rr-text-h3); line-height: var(--rr-lh-h3); margin: 0 0 var(--rr-space-3); }
+
+/* Comparison page (rim-reader-vs-gyraline) */
+.vs-table { font-size: 1.05rem; }
+.vs-table th, .vs-table td { padding: var(--rr-space-4); vertical-align: middle; }
+.vs-table td:first-child { color: var(--rr-text-2); width: 22%; }
+.vs-table th.vs-us { color: var(--rr-accent); }
+.vs-table td.vs-us { background: var(--rr-tonal); color: var(--rr-text); font-weight: var(--rr-weight-semibold); }
+a.src { font-size: 0.75em; color: var(--rr-text-2); text-decoration: none; white-space: nowrap; }
+a.src:hover { color: var(--rr-accent); }
+.vs-note { color: var(--rr-text-2); margin-top: var(--rr-space-4); max-width: var(--rr-text-max-width); }
+.vs-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--rr-space-4); }
+.vs-cards h3 { margin-top: 0; }
+.vs-cards p { margin-bottom: 0; }
+.vs-prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--rr-space-4); }
+.vs-price { display: flex; flex-direction: column; gap: var(--rr-space-1); padding: var(--rr-space-5); border: var(--rr-border-width) solid var(--rr-border); border-radius: var(--rr-radius-card); background: var(--rr-bg); }
+.vs-price.us { border-color: var(--rr-accent); }
+.vs-price span { font-size: var(--rr-text-eyebrow); text-transform: uppercase; letter-spacing: 0.06em; color: var(--rr-text-2); }
+.vs-price b { font-size: var(--rr-text-h2); font-weight: var(--rr-weight-extrabold); color: var(--rr-text); }
+.vs-price small { color: var(--rr-text-2); font-size: var(--rr-text-small); }
+.sources ol { padding-left: 1.4em; font-size: var(--rr-text-small); line-height: var(--rr-lh-small); }
+.sources li { margin-bottom: var(--rr-space-2); }
+.sources li:target { background: var(--rr-tonal); border-radius: 6px; }
+@media (max-width: 700px) {
+  .vs-table td:first-child { width: auto; color: var(--rr-text); }
+  .vs-table td.vs-us { background: none; }
+  .vs-table td.vs-us::before { color: var(--rr-accent); }
+}
+@media (max-width: 900px) { .vs-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .vs-cards { grid-template-columns: 1fr; } }
