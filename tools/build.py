@@ -237,7 +237,7 @@ def header(meta, root):
   <div class="wrap">
     <a class="brand" href="{root}index.html" aria-label="Rim Reader home">{logo}</a>
     <nav class="nav" aria-label="Main">{links}</nav>
-    <a class="rr-btn rr-btn-primary head-cta" href="{root}coming-soon.html">Coming soon</a>
+    <a class="rr-btn rr-btn-primary head-cta" href="https://play.google.com/store/apps/details?id=com.rimreader.app">Get the app</a>
     <button class="theme-toggle" type="button" aria-label="Switch theme">{sun}{moon}</button>
   </div>
 </header>
