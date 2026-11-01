@@ -17,7 +17,19 @@
   "android": "Android 10 or newer",
   "bracket-weight": "about 225 to 345 g",
   "design-version": "1.7.0",
-  "play-url": "https://play.google.com/store/apps/details?id=com.rimreader.app",
+  "play-url": "https://play.google.com/store/apps/details?id=com.rimreader.app&referrer=utm_source%3Drimreader.com%26utm_medium%3Dwebsite",
   "printables-url": "https://www.printables.com/model/1878939-rim-reader-bracket-phone-wheel-alignment-for-toe-a",
-  "appstore-url": ""
+  "appstore-url": "",
+  "shop-url": "https://rim-reader.square.site/",
+  "shop-kit-url": "https://rim-reader.square.site/product/rim-reader-complete-kit/3EG6KI2AWIGKGJFU6LCSKBWF",
+  "shop-long-url": "https://rim-reader.square.site/product/long-wedge-set/4M2XGWEZBD7PCTVUP272LBYC",
+  "shop-short-url": "https://rim-reader.square.site/product/short-wedge-set/ZEHQSXQWKFWLSHFMRA4PPCTL",
+  "kit-price": "$69.99",
+  "long-set-price": "$29.99",
+  "short-set-price": "$24.99",
+  "bracket-price": "$34.99",
+  "google-site-verification": "",
+  "bing-site-verification": "",
+  "cloudflare-analytics-token": "",
+  "_about_ids": "google-site-verification, bing-site-verification and cloudflare-analytics-token: paste the code each service gives you between the quotes, run tools/build.py, and every page carries it. Leave empty to leave it out."
 }

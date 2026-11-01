@@ -11,7 +11,7 @@
 <line class="d-thin" x1="396" y1="142" x2="200" y2="84"/>
 <text class="d-text" x="24" y="70">tape, about 1 in (25 mm)</text>
 <text class="d-text" x="24" y="88">above the floor</text>
-<text class="d-small" x="476" y="108" text-anchor="middle">V pointing down: your mark</text>
+<text class="d-small" x="548" y="108" text-anchor="end">V pointing down: your mark</text>
 <line class="d-thin" x1="476" y1="266" x2="476" y2="290"/>
 <text class="d-small" x="476" y="306" text-anchor="middle">right prong under the V</text>
 <text class="d-small" x="280" y="328" text-anchor="middle">Dashed: the prongs, out of sight behind the bracket,</text>

@@ -427,3 +427,52 @@ a.src:hover { color: var(--rr-accent); }
 }
 @media (max-width: 900px) { .vs-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .vs-cards { grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------------- 2026-11 pass: shop, wider desktop layouts, phone diagrams */
+
+/* Tighter sections on wide screens */
+@media (min-width: 601px) { .section { padding: var(--rr-space-8) 0; } .hero { padding: var(--rr-space-8) 0; } }
+
+/* Hero links and note under the buttons */
+.hero-links { display: flex; flex-wrap: wrap; gap: var(--rr-space-2) var(--rr-space-5); margin: var(--rr-space-4) 0 0; }
+.hero-links a { display: inline-flex; min-height: 44px; align-items: center; font-weight: var(--rr-weight-semibold); }
+.hero-note { font-size: var(--rr-text-small); line-height: var(--rr-lh-small); margin: var(--rr-space-2) 0 0; }
+@media (max-width: 900px) { .hero-links, .hero-note { order: 2; } }
+
+/* A page whose head carries its photo (the bracket) */
+.page-hero .fig { margin: 0; }
+@media (max-width: 900px) { .page-hero .fig { order: 1; margin: var(--rr-space-2) 0 var(--rr-space-5); } .page-hero .rr-eyebrow, .page-hero h1 { order: 0; } }
+
+/* Dropdowns that use the full width; their text stays a readable width */
+.more-group.wide { max-width: none; }
+.more-group.wide .more-body > p, .more-group.wide .more-body > ul, .more-group.wide .more-body > h3 { max-width: var(--rr-text-max-width); }
+
+/* Text beside its dropdowns on wide screens */
+.wrap.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--rr-space-7); align-items: start; }
+.wrap.pair > .text { max-width: none; }
+.wrap.pair > .more-group { margin-top: var(--rr-space-8); }
+@media (max-width: 900px) { .wrap.pair { grid-template-columns: minmax(0, 1fr); gap: 0; } .wrap.pair > .more-group { margin-top: var(--rr-space-5); } }
+
+/* FAQ: topics stay beside the questions on wide screens */
+@media (min-width: 901px) {
+  .faq-layout .faq { display: grid; grid-template-columns: 220px minmax(0, var(--rr-text-max-width)); column-gap: var(--rr-space-7); max-width: none; }
+  .faq-layout .faq > * { grid-column: 2; }
+  .faq-layout .faq > .toc { grid-column: 1; grid-row: 1 / span 30; position: sticky; top: var(--rr-space-4); align-self: start; margin-top: var(--rr-space-5); }
+  .faq-layout .toc .two-col-list { columns: 1; }
+}
+
+/* Cards: the one we point to */
+.rr-card.here { border-color: var(--rr-accent); }
+.get-bracket { margin-top: var(--rr-space-5); }
+.wf-buy { border-top: var(--rr-border-width) solid var(--rr-border); padding-top: var(--rr-space-3); margin-top: var(--rr-space-3); }
+
+/* Diagrams on phones: fit the screen, with the labels drawn a little larger so they stay readable */
+@media (max-width: 600px) {
+  .diagram { overflow-x: visible; }
+  .diagram svg { min-width: 0; }
+  .diagram .d-text, .diagram .d-acctext { font-size: 17px; }
+  .diagram .d-small { font-size: 15px; }
+}
+
+/* Phones: six menu items on one row without scrolling */
+@media (max-width: 600px) { .nav { gap: 0; justify-content: space-between; font-size: 0.8125rem; } }

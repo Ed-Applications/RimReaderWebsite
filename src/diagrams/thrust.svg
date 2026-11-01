@@ -14,9 +14,9 @@
 <path class="d-acc" d="M210 188 A120 120 0 0 1 224.6 188.9" style="stroke-width:2"/>
 <line class="d-thin" x1="131.0" y1="308" x2="289.0" y2="308"/>
 <text class="d-acctext" x="318" y="158">thrust line</text>
-<text class="d-small" x="318" y="176">where the rear axle points the car</text>
-<text class="d-text" x="318" y="212">thrust angle</text>
-<text class="d-small" x="318" y="230">between the two lines</text>
+<text class="d-small" x="318" y="176">where the rear axle</text><text class="d-small" x="318" y="194">points the car</text>
+<text class="d-text" x="318" y="226">thrust angle</text>
+<text class="d-small" x="318" y="244">between the two lines</text>
 <text class="d-small" x="318" y="110">dashed: the body&#8217;s centreline,</text>
 <text class="d-small" x="318" y="128">read at the front door glass</text>
 <text class="d-small" x="260" y="420" text-anchor="middle">Seen from above. Angles exaggerated, not to scale.</text>

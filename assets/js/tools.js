@@ -27,10 +27,16 @@
       if (onEdge && set === "short") k = Math.round((mm - 67) / 3) - 1;
       if (k > 7) k = 7;
       var lo = 67 + 3 * k, band = lo + "-" + (lo + 3);
-      var html = "<p class=\"wf-answer\">Print <strong>wedge " + band + "</strong> from the <strong>" + set + " set</strong>.</p>" +
-        "<p class=\"rr-muted\">File name: <code>wedge_" + band + "_" + set + "</code>. The band is engraved on the wedge&rsquo;s top.</p>";
+      var html = "<p class=\"wf-answer\">Your wedge: <strong>" + band + "</strong> from the <strong>" + set + " set</strong>.</p>" +
+        "<p class=\"rr-muted\">Printing it yourself? File name: <code>wedge_" + band + "_" + set + "</code>. The band is engraved on the wedge&rsquo;s top.</p>";
       if (onEdge) html += "<p class=\"rr-muted\">" + shown + " is exactly on a boundary, so either neighbouring band fits." + (set === "short" ? " A short wedge takes the narrower band, which sits further back." : "") + "</p>";
       if (set === "short") html += "<p class=\"rr-muted\">If the short wedge presses a button, the phone is a little narrower than measured: use the next band down.</p>";
+      // Buying it printed: the set holds all eight bands, so name the set and link to it.
+      var d = form.dataset;
+      if (d.shopLong && d.shopShort) {
+        html += "<p class=\"wf-buy\"><strong>Buying it printed?</strong> Get the <a href=\"" + (set === "short" ? d.shopShort : d.shopLong) + "\">" + set + " wedge set</a> (" +
+          (set === "short" ? d.shortPrice : d.longPrice) + ", all eight sizes), or the <a href=\"" + d.shopKit + "\">Complete Kit</a> (" + d.kitPrice + ") with " + set + " wedges and both brackets.</p>";
+      }
       out.innerHTML = html;
     }
     ["input", "change"].forEach(function (ev) { form.addEventListener(ev, result); });

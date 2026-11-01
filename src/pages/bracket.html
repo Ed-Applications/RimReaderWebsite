@@ -1,19 +1,21 @@
-<!--{"title": "The bracket", "description": "The Rim Reader bracket: two 3D-printed parts that hold your phone square on the rim. Find the wedge for your phone, print it, or make your own.", "nav": "bracket", "js": ["tools.js"]}-->
-<section class="page-head">
+<!--{"title": "3D-Printed Phone Bracket for Wheel Alignment", "crumb": "The bracket", "description": "The Rim Reader bracket: two 3D-printed parts that hold your phone square on the rim. Find your wedge, buy one printed, print it free, or make your own.", "nav": "bracket", "js": ["tools.js"], "image": "assets/img/share/bracket.jpg", "image_alt": "The Rim Reader bracket with a phone clamped in it by an orange wedge"}-->
+<section class="hero page-hero">
   <div class="wrap">
-    <p class="rr-eyebrow">The bracket</p>
-    <h1>A printed bracket that holds your phone true</h1>
-    <p class="lead">Two printed parts, the bracket and one wedge, hold your phone square against the rim, the same way every time. No screws, magnets or hardware to buy. It fits phones {{fact:phone-width}} wide in their case.</p>
-  </div>
-</section>
-
-<section class="section alt" style="padding-top:var(--rr-space-6)">
-  <div class="wrap">
+    <div>
+      <p class="rr-eyebrow">The bracket</p>
+      <h1>A printed bracket that holds your phone true</h1>
+      <p class="lead">Two printed parts, the bracket and one wedge, hold your phone square against the rim, the same way every time. No screws, magnets or hardware to buy. It fits phones {{fact:phone-width}} wide in their case.</p>
+      <div class="actions">
+        <a class="rr-btn rr-btn-primary" href="{{fact:shop-url}}">Buy one printed</a>
+        <a class="rr-btn rr-btn-secondary" href="#wedge">Find your wedge</a>
+      </div>
+      <p class="hero-links"><a href="{{fact:printables-url}}">Or print it free</a></p>
+    </div>
     {{figure:assets/img/bracket/studio-phone.webp|The Rim Reader bracket in graphite, with a phone clamped in it by an orange wedge|The bracket with a phone locked in by its wedge.}}
   </div>
 </section>
 
-<section class="section" id="wedge">
+<section class="section alt" id="wedge">
   <div class="wrap">
     <div class="split">
       <div class="text">
@@ -22,7 +24,7 @@
         <p>One wedge fits each phone width. Measure your phone <strong>in its case</strong>, at its widest point, and check its left side for buttons (screen toward you, top up).</p>
         <p class="rr-muted">On a boundary, such as 82.0 mm, either neighbour fits; for a short wedge take the narrower band. If a short wedge presses a button, use the next band down.</p>
       </div>
-      <form class="finder" id="wedge-finder" autocomplete="off">
+      <form class="finder" id="wedge-finder" autocomplete="off" data-shop-long="{{fact:shop-long-url}}" data-shop-short="{{fact:shop-short-url}}" data-shop-kit="{{fact:shop-kit-url}}" data-long-price="{{fact:long-set-price}}" data-short-price="{{fact:short-set-price}}" data-kit-price="{{fact:kit-price}}">
         <div class="row">
           <div>
             <label for="wf-width">Width in its case</label>
@@ -38,7 +40,7 @@
       </form>
     </div>
 
-    <div class="text more-group">
+    <div class="more-group wide">
     {{more:Popular phones and their wedge|phones}}
     <p>A guide only. The widths in a case are <strong>estimates</strong>: the phone&rsquo;s published width plus 6.5 mm for a typical case. A slim case can be 2 to 4 mm narrower and drop a phone one band, so measure your own.</p>
     <div class="table-wrap">
@@ -88,20 +90,22 @@
   </div>
 </section>
 
-<section class="section alt">
+<section class="section" id="getting-one">
   <div class="wrap">
     <p class="rr-eyebrow">Getting one</p>
-    <h2>Print ours, have it printed, or make your own</h2>
+    <h2>Buy one printed, print ours, or make your own</h2>
     <div class="grid three">
+      <div class="rr-card here" id="buy">
+        <h3>Buy one printed <span class="tag">Free shipping</span></h3>
+        <p>Printed in PETG and ready to use. The Complete Kit ({{fact:kit-price}}) has both brackets and a full wedge set; wedge sets and single brackets are sold too.</p>
+        <p><a class="rr-btn rr-btn-primary" href="{{fact:shop-url}}">Shop brackets and wedges</a></p>
+        <p class="rr-muted">Run the app&rsquo;s free Phone Check first: two minutes with the phone flat on a table tells you whether it can measure alignment.</p>
+      </div>
       <div class="rr-card" id="printing">
         <h3>Print ours <span class="tag">Free files</span></h3>
-        <p>It prints in PETG on a home printer with a 220 &times; 220 mm bed, with no supports. The files for the bracket and all sixteen wedges are free on Printables.</p>
-        <p><a class="rr-btn rr-btn-primary" href="{{fact:printables-url}}">Get the print files</a></p>
+        <p>It prints in PETG on a home printer with a 220 &times; 220 mm bed, with no supports. The files for the bracket and all sixteen wedges are free on Printables. No printer? Libraries, makerspaces and print services can print it: ask for PETG.</p>
+        <p><a class="rr-btn rr-btn-secondary" href="{{fact:printables-url}}">Get the print files</a></p>
         <p><a href="bracket-print.html">Print settings and care</a></p>
-      </div>
-      <div class="rr-card" id="no-printer">
-        <h3>No printer?</h3>
-        <p>Many libraries, schools and makerspaces have one, and online print services will print a file for you. Ask for PETG.</p>
       </div>
       <div class="rr-card" id="make-your-own">
         <h3>Make your own</h3>

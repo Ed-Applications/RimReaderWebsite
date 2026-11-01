@@ -46,6 +46,7 @@ SHARE_ALT = "The Rim Reader bracket with a phone in it, on top of a car's front 
 NAV = [
     ("how", "how-it-works.html", "How it works"),
     ("bracket", "bracket.html", "The bracket"),
+    ("shop", "https://rim-reader.square.site/", "Shop"),
     ("accuracy", "accuracy.html", "Accuracy"),
     ("help", "help/index.html", "Help"),
     ("faq", "faq.html", "FAQ"),
@@ -57,8 +58,10 @@ FOOTER = [
         ("accuracy.html", "Accuracy and other methods"),
         ("coming-soon.html", "What&rsquo;s coming"),
         ("faq.html", "FAQ"),
+        ("about.html", "About us"),
     ]),
     ("The bracket", [
+        ("https://rim-reader.square.site/", "Buy one printed"),
         ("bracket.html", "The bracket"),
         ("bracket.html#wedge", "Find your wedge"),
         ("bracket-print.html", "Print and care"),
@@ -114,6 +117,14 @@ SUN = ('<svg viewBox="0 0 24 24" aria-hidden="true" class="only-dark"><circle cx
 MOON = ('<svg viewBox="0 0 24 24" aria-hidden="true" class="only-light"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>')
 
 LESSON_ENGINE = ["lesson-engine.js", "lessons-data.js", "lessons.js"]
+
+
+FACTS = {}
+
+
+def link(root, href):
+    """A link from a page: site pages get the path back to the top, other sites don't."""
+    return href if href.startswith(("http://", "https://", "mailto:")) else root + href
 
 
 def ver(path):
@@ -182,10 +193,20 @@ def head(meta, rel, root, extra_js, ld):
     full = title if title.startswith(NAME) else "%s | %s" % (title, NAME)
     desc = html.escape(meta["description"], quote=True)
     url = page_url(rel)
+    if meta.get("help"):
+        meta.setdefault("image", "assets/img/share/help.jpg")
+        meta.setdefault("image_alt", "Rim Reader help center: measure toe, camber and thrust angle")
     image = SITE + "/" + meta.get("image", SHARE_IMAGE)
     noindex = '\n<meta name="robots" content="noindex">' if meta.get("noindex") else ""
     canonical = "" if meta.get("noindex") else '\n<link rel="canonical" href="%s">' % url
     js = "".join('\n<script src="%sassets/js/%s?v=%s" defer></script>' % (root, j, ver("assets/js/" + j)) for j in extra_js)
+    # Search Console / Bing verification and the cookie-free visit counter, when their codes are in facts.json
+    if FACTS.get("google-site-verification"):
+        noindex += '\n<meta name="google-site-verification" content="%s">' % html.escape(FACTS["google-site-verification"], quote=True)
+    if FACTS.get("bing-site-verification"):
+        noindex += '\n<meta name="msvalidate.01" content="%s">' % html.escape(FACTS["bing-site-verification"], quote=True)
+    if FACTS.get("cloudflare-analytics-token"):
+        js += """\n<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "%s"}'></script>""" % html.escape(FACTS["cloudflare-analytics-token"], quote=True)
     return """<!doctype html>
 <html lang="en">
 <head>
@@ -216,7 +237,7 @@ def head(meta, rel, root, extra_js, ld):
 <script src="{root}assets/js/theme.js?v={v_theme}" defer></script>{js}{ld}
 </head>
 """.format(full=html.escape(full), full_e=html.escape(full, quote=True), desc=desc, noindex=noindex,
-           canonical=canonical, url=url, image=image, share_alt=html.escape(SHARE_ALT, quote=True), root=root, js=js, ld=ld,
+           canonical=canonical, url=url, image=image, share_alt=html.escape(meta.get("image_alt", SHARE_ALT), quote=True), root=root, js=js, ld=ld,
            v_tok=ver("assets/css/rim-reader.css"), v_site=ver("assets/css/site.css"), v_theme=ver("assets/js/theme.js"))
 
 
@@ -230,7 +251,7 @@ def header(meta, root):
     links = []
     for key, href, label in NAV:
         cur = ' aria-current="page"' if meta.get("nav") == key else ""
-        links.append('<a href="%s%s"%s>%s</a>' % (root, href, cur, label))
+        links.append('<a href="%s"%s>%s</a>' % (link(root, href), cur, label))
     return """<body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
@@ -247,7 +268,7 @@ def header(meta, root):
 def footer(root):
     cols = []
     for title, items in FOOTER:
-        lis = "".join('<li><a href="%s%s">%s</a></li>' % (root, h, l) for h, l in items)
+        lis = "".join('<li><a href="%s">%s</a></li>' % (link(root, h), l) for h, l in items)
         cols.append('<div><h2>%s</h2><ul>%s</ul></div>' % (title, lis))
     return """<footer class="site-footer">
   <div class="wrap">
@@ -386,16 +407,40 @@ def structured(meta, rel, body):
     rel = rel.replace(os.sep, "/")
     if rel == "index.html":
         return jsonld({"@context": "https://schema.org", "@graph": [
-            {"@type": "Organization", "name": "Rim Reader", "legalName": "Middle TN Auto Repair LLC", "url": SITE + "/",
-             "logo": SITE + "/assets/icon/rim-reader-icon-512.png", "email": "info@rimreader.com"},
-            {"@type": "WebSite", "name": "Rim Reader", "url": SITE + "/"}]})
+            {"@type": "Organization", "@id": SITE + "/#org", "name": "Rim Reader", "legalName": "Middle TN Auto Repair LLC", "url": SITE + "/",
+             "logo": SITE + "/assets/icon/rim-reader-icon-512.png", "email": "info@rimreader.com",
+             "sameAs": [FACTS["play-url"].split("&")[0], FACTS["shop-url"], FACTS["printables-url"]]},
+            {"@type": "WebSite", "name": "Rim Reader", "url": SITE + "/"},
+            {"@type": "MobileApplication", "name": "Rim Reader", "operatingSystem": "Android 10 or newer",
+             "applicationCategory": "UtilitiesApplication", "url": FACTS["play-url"].split("&")[0],
+             "description": meta["description"], "publisher": {"@id": SITE + "/#org"},
+             "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free for the first full alignment on one vehicle; upgrades in the app."}}]})
+    if rel == "bracket.html":
+        return jsonld({"@context": "https://schema.org", "@graph": [
+            {"@type": "Product", "name": "Rim Reader Complete Kit", "brand": {"@type": "Brand", "name": "Rim Reader"},
+             "description": "Both Rim Reader camera brackets and a full set of eight wedges for phones 67 to 91 mm wide in their case, 3D-printed in PETG.",
+             "image": SITE + "/assets/img/bracket/studio-phone.webp", "sku": "RR-KIT",
+             "offers": {"@type": "Offer", "url": FACTS["shop-kit-url"], "price": FACTS["kit-price"].lstrip("$"), "priceCurrency": "USD",
+                        "availability": "https://schema.org/InStock", "itemCondition": "https://schema.org/NewCondition",
+                        "shippingDetails": {"@type": "OfferShippingDetails", "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": "USD"},
+                                            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "US"}}}},
+            crumbs_ld([("The bracket", rel)])]})
     if rel == "faq.html":
         return jsonld(faq_ld(body))
     if meta.get("help") and rel != "help/index.html":
-        return jsonld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Help center", "item": SITE + "/help/"},
-            {"@type": "ListItem", "position": 2, "name": meta["title"], "item": page_url(rel)}]})
+        return jsonld(dict(crumbs_ld([("Help center", "help/index.html"), (meta.get("crumb", meta["title"]), rel)]), **{"@context": "https://schema.org"}))
+    if rel in ("bracket-print.html", "make-your-own.html"):
+        return jsonld(dict(crumbs_ld([("The bracket", "bracket.html"), (meta.get("crumb", meta["title"]), rel)]), **{"@context": "https://schema.org"}))
+    if not meta.get("noindex") and not meta.get("redirect"):
+        return jsonld(dict(crumbs_ld([(meta.get("crumb", meta["title"]), rel)]), **{"@context": "https://schema.org"}))
     return ""
+
+
+def crumbs_ld(trail):
+    """A BreadcrumbList: Home, then each (name, page) in the trail."""
+    items = [("Home", "index.html")] + trail
+    return {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": page_url(r)} for i, (n, r) in enumerate(items)]}
 
 
 def redirect_page(meta, rel, root):
@@ -476,20 +521,35 @@ def build_one(src_path, facts):
     return rel, meta
 
 
+def lastmod(rel):
+    """The date the page's source last changed, from git (empty if git isn't there)."""
+    import datetime
+    import subprocess
+    src = os.path.join("src", "pages", rel)
+    try:
+        if subprocess.run(["git", "-C", ROOT, "status", "--porcelain", "--", src], capture_output=True, text=True).stdout.strip():
+            return datetime.date.today().isoformat()
+        d = subprocess.run(["git", "-C", ROOT, "log", "-1", "--format=%cs", "--", src], capture_output=True, text=True).stdout.strip()
+        return d or datetime.date.today().isoformat()
+    except OSError:
+        return ""
+
+
 def main():
     with open(os.path.join(SRC, "facts.json"), encoding="utf-8") as f:
         facts = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
+    FACTS.update(facts)
     pages = []
     for d, _, files in os.walk(os.path.join(SRC, "pages")):
         for fn in sorted(files):
             if fn.endswith(".html"):
                 pages.append(build_one(os.path.join(d, fn), facts))
     # sitemap.xml for search engines (the 404 page, noindex pages and redirects left out)
-    urls = sorted(page_url(rel) for rel, meta in pages if not meta.get("noindex") and not meta.get("redirect"))
+    urls = sorted((page_url(rel), lastmod(rel)) for rel, meta in pages if not meta.get("noindex") and not meta.get("redirect"))
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
-        for u in urls:
-            f.write("  <url><loc>%s</loc></url>\n" % u)
+        for u, d in urls:
+            f.write("  <url><loc>%s</loc>%s</url>\n" % (u, "<lastmod>%s</lastmod>" % d if d else ""))
         f.write("</urlset>\n")
     with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8", newline="\n") as f:
         f.write("User-agent: *\nAllow: /\nDisallow: /src/\nDisallow: /tools/\nSitemap: %s/sitemap.xml\n" % SITE)
