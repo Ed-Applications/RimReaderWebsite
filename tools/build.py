@@ -105,7 +105,7 @@ HELP = [
     ]),
     ("Learn", [
         ("help/alignment-basics.html", "Alignment basics"),
-        ("help/lessons.html", "All 16 lessons"),
+        ("help/lessons.html", "All 17 lessons"),
     ]),
     ("Fix a problem", [
         ("help/troubleshooting.html", "Troubleshooting"),

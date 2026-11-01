@@ -43,7 +43,7 @@ A page whose settings include `"redirect": "page.html#anchor"` only sends visito
 | `rim-reader-vs-gyraline.html` | Rim Reader, Gyraline G1 and G2 side by side, every Gyraline point cited to their own pages or videos (sources dated). Linked from Accuracy and the FAQ's price answer. Re-check Gyraline's prices and features before relying on it |
 | `coming-soon.html` | What's coming: Google Play, iPhone, shop plans, factory specs (the print files are out: Printables, linked from `src/facts.json` `printables-url`) |
 | `faq.html` | Frequently asked questions, with a search box |
-| `help/` | The help center: getting started, set up, measuring, results, history and reports, alignment basics, all 16 lessons, troubleshooting |
+| `help/` | The help center: getting started, set up, measuring, results, history and reports, alignment basics, all 17 lessons, troubleshooting |
 | `support.html` | How support works and how to contact us. Usable as the app stores' support URL |
 | `privacy.html` | Privacy policy. Usable as the app stores' privacy-policy URL |
 | `terms.html` | Terms of Use and Safety, version 6, word for word as the app shows it |
