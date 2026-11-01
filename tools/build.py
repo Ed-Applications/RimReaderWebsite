@@ -445,6 +445,27 @@ def crumbs_ld(trail):
 
 def redirect_page(meta, rel, root):
     target = meta["redirect"]
+    if target.startswith("fact:"):
+        target = FACTS[target[5:]]
+    if target.startswith(("http://", "https://")):
+        # A short rimreader.com address that forwards to another site (the store),
+        # so the app and printed material can use a link we control.
+        t = html.escape(target, quote=True)
+        return """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | Rim Reader</title>
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={t}">
+<script>location.replace({js});</script>
+</head>
+<body>
+<p>Taking you to <a href="{t}">{title}</a>.</p>
+</body>
+</html>
+""".format(title=html.escape(meta["title"]), t=t, js=json.dumps(target))
     return """<!doctype html>
 <html lang="en">
 <head>
