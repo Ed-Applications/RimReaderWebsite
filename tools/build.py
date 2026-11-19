@@ -451,6 +451,13 @@ def redirect_page(meta, rel, root):
         # A short rimreader.com address that forwards to another site (the store),
         # so the app and printed material can use a link we control.
         t = html.escape(target, quote=True)
+        # A channel link ("app_link": true) sends iPhones to the App Store once
+        # appstore-url is filled in, and to the Get the app page until then, so
+        # the tagged Google Play link only serves Android visitors.
+        ios = ""
+        if meta.get("app_link"):
+            ios_target = FACTS.get("appstore-url") or (root + "get.html")
+            ios = "if (/iPhone|iPad|iPod/.test(navigator.userAgent)) location.replace({0}); else ".format(json.dumps(ios_target))
         return """<!doctype html>
 <html lang="en">
 <head>
@@ -459,13 +466,13 @@ def redirect_page(meta, rel, root):
 <title>{title} | Rim Reader</title>
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url={t}">
-<script>location.replace({js});</script>
+<script>{ios}location.replace({js});</script>
 </head>
 <body>
 <p>Taking you to <a href="{t}">{title}</a>.</p>
 </body>
 </html>
-""".format(title=html.escape(meta["title"]), t=t, js=json.dumps(target))
+""".format(title=html.escape(meta["title"]), t=t, js=json.dumps(target), ios=ios)
     return """<!doctype html>
 <html lang="en">
 <head>
